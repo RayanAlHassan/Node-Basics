@@ -74,7 +74,7 @@ function quit() {
 }
 
 /**
- * help command
+ *give a help list for some text input 
  *
  * @returns {void}
  */
