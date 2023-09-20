@@ -42,6 +42,10 @@ function onDataReceived(text) {
     help();
   } else if (text === "list\n") {
     list();
+  } else if (text.startsWith("add")) {
+    addx(text.slice(3));
+  } else if (text === "add\n") {
+    err();
   } else {
     unknownCommand(text);
   }
@@ -84,15 +88,48 @@ function hellox(x) {
  *
  * @returns {void}
  */
+const tasks = ["add", "remove", "list"];
 
 function list() {
-  const tasks = ["add", "remove", "list"];
   console.log("Tasks:");
   tasks.forEach((task, index) => {
     console.log(`${index + 1}. ${task}`);
   });
 }
 
+/**
+ *add to the list
+ *
+ * @returns {void}
+ */
+function addx(tsk) {
+  try {
+    let ts = tsk.trim();
+    if (ts) {
+      tasks.push(ts);
+    } else if (!ts) {
+      throw new Error("An error occurred because someCondition is true.");
+    }
+  } catch (error) {
+    // Handle the error
+    console.error("An error occurred:", error.message);
+  }
+}
+
+// /**
+//  * error for no adding
+//  *
+//  * @returns {void}
+//  */
+// function err() {
+//   try {
+//     // the message of error and it will appear eventually because there is no condition in try
+//     throw new Error("This is a custom error message.");
+//   } catch (error) {
+//     // Handle the error and take the previous err msg
+//     console.error("An error occurred:", error.message);
+//   }
+// }
 /**
  * Exits the application
  *
