@@ -40,6 +40,8 @@ function onDataReceived(text) {
     hellox(text.slice(6));
   } else if (text === "help\n") {
     help();
+  } else if (text === "list\n") {
+    list();
   } else {
     unknownCommand(text);
   }
@@ -75,6 +77,18 @@ function hello() {
 function hellox(x) {
   let name = x.trim(); // we need trim to cut the spaces after the slice because i took arg from 6 till the end of line
   console.log(`hello ${name}!`);
+}
+
+/**
+ * list tasks
+ *
+ * @returns {void}
+ */
+
+function list() {
+  console.log(`task 1: add
+task 2 : remove 
+task 3 : list `);
 }
 
 /**
