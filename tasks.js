@@ -36,6 +36,8 @@ function onDataReceived(text) {
     quit();
   } else if (text === "hello\n") {
     hello();
+  } else if (text.startsWith("hello")) {
+    hellox(text.slice(6));
   } else if (text === "help\n") {
     help();
   } else {
@@ -59,8 +61,20 @@ function unknownCommand(c) {
  *
  * @returns {void}
  */
+
 function hello() {
-  console.log("hello!");
+  console.log(`hello `);
+}
+
+/**
+ * Says hello x
+ *
+ * @returns {void}
+ */
+
+function hellox(x) {
+  let name = x.trim();
+  console.log(`hello ${name}!`);
 }
 
 /**
@@ -74,7 +88,7 @@ function quit() {
 }
 
 /**
- *give a help list for some text input 
+ *give a help list for some text input
  *
  * @returns {void}
  */
