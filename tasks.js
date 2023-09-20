@@ -86,9 +86,11 @@ function hellox(x) {
  */
 
 function list() {
-  console.log(`task 1: add
-task 2 : remove 
-task 3 : list `);
+  const tasks = ["add", "remove", "list"];
+  console.log("Tasks:");
+  tasks.forEach((task, index) => {
+    console.log(`${index + 1}. ${task}`);
+  });
 }
 
 /**
