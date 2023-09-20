@@ -94,8 +94,9 @@ function quit() {
  */
 function help() {
   console.log(
-    `hello : hello !!
-qiut OR exit :Quitting now, goodbye! `
+    `hello : hello!
+qiut OR exit :Quitting now, goodbye! 
+hello x : hello x!`
   );
 }
 
