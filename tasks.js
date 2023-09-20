@@ -63,7 +63,7 @@ function unknownCommand(c) {
  */
 
 function hello() {
-  console.log(`hello `);
+  console.log(`hello!`);
 }
 
 /**
@@ -73,7 +73,7 @@ function hello() {
  */
 
 function hellox(x) {
-  let name = x.trim();
+  let name = x.trim(); // we need trim to cut the spaces after the slice because i took arg from 6 till the end of line
   console.log(`hello ${name}!`);
 }
 
