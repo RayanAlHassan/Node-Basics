@@ -44,8 +44,12 @@ function onDataReceived(text) {
     list();
   } else if (text.startsWith("add")) {
     addx(text.slice(3));
-  } else if (text === "add\n") {
-    err();
+  } else if (text === "remove\n") {
+    remove();
+  } else if (text === "remove 1\n") {
+    removeFirst(tasks);
+  } else if (text === "remove 2\n") {
+    removeSecond(tasks);
   } else {
     unknownCommand(text);
   }
@@ -116,20 +120,32 @@ function addx(tsk) {
   }
 }
 
-// /**
-//  * error for no adding
-//  *
-//  * @returns {void}
-//  */
-// function err() {
-//   try {
-//     // the message of error and it will appear eventually because there is no condition in try
-//     throw new Error("This is a custom error message.");
-//   } catch (error) {
-//     // Handle the error and take the previous err msg
-//     console.error("An error occurred:", error.message);
-//   }
-// }
+/**
+ * remove the last element
+ *
+ * @returns {void}
+ */
+function remove() {
+  tasks.pop();
+}
+
+/**
+ * remove the first element
+ * @param {Array} tasks
+ * @returns {void}
+ */
+function removeFirst(tasks) {
+  tasks.shift();
+}
+
+/**
+ * remove the second element
+ * @param {Array} tasks
+ * @returns {void}
+ */
+function removeSecond(tasks) {
+  tasks.splice(1, 1);
+}
 /**
  * Exits the application
  *
