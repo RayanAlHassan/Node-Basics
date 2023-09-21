@@ -168,7 +168,7 @@ function editing(edt) {
   if (ed) {
     if (ed === "new text") {
       tasks[tasks.length - 1] = "new text";
-    } else if (ed === "1") {
+    } else if (ed.startsWith("1")) {
       tasks[0] = "new text";
     }
   } else console.log("error");
