@@ -165,7 +165,13 @@ function help() {
   console.log(
     `hello : hello!
 qiut OR exit :Quitting now, goodbye! 
-hello x : hello x!`
+hello x : hello x!
+list : it will list all tasks
+add x : it will add an item , x is whatever
+add : give an error
+remove : remove the last element
+remove 1 : remove the first element
+remove 2: remove the second element`
   );
 }
 
