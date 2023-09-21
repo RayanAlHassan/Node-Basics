@@ -251,7 +251,17 @@ function uncheck(uncheckk) {
  *
  * @returns {void}
  */
-function quit() {
+async function quit() {
+  const fs = require("fs").promises;
+  const jsonData = JSON.stringify(tasks, null, 2);
+
+  try {
+    await fs.writeFile("database.json", jsonData, { encoding: "utf-8" });
+    console.log("saved");
+  } catch (err) {
+    console.log(err);
+  }
+
   console.log("Quitting now, goodbye!");
   process.exit();
 }
@@ -280,3 +290,31 @@ uncheck : will uncheck the task that is already checked `
 
 // The following line starts the application
 startApp("rayan al hassan");
+// tasks.js
+
+const fs = require("fs");
+
+// Function to load tasks from a file (or create an empty array if the file doesn't exist)
+const loadTasksFromFile = (filename) => {
+  try {
+    const data = fs.readFileSync(filename, "utf8");
+    return JSON.parse(data);
+  } catch (error) {
+    console.error("Error loading data from file:", error.message);
+    return []; // Return an empty array in case of an error
+  }
+};
+
+const tasksFilename = process.argv[2] || "database.json"; // Allow specifying a custom save file via command-line argument
+
+const taskss = loadTasksFromFile(tasksFilename);
+
+// ... (previous code)
+
+// Listen for the 'beforeExit' event to save data before exiting
+process.on("beforeExit", () => {
+  saveTasksToFile(taskss, tasksFilename);
+  console.log("Quitting now, goodbye!");
+});
+
+// ... (previous code)
