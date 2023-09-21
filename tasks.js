@@ -133,7 +133,7 @@ function remove(notIncl) {
   ni = notIncl.trim();
   if (ni) {
     for (let i = 0; i < tasks.length; i++) {
-      if (ni !== tasks[i]) {
+      if (ni !== i + 1) {
         console.log("this is not include");
         break;
       }
