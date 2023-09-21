@@ -94,12 +94,16 @@ function hellox(x) {
  *
  * @returns {void}
  */
-const tasks = ["add", "remove", "list"];
+const tasks = [
+  { task: "add", done: true },
+  { task: "remove", done: true },
+  { task: "list", done: false },
+];
 
 function list() {
   console.log("Tasks:");
   tasks.forEach((task, index) => {
-    console.log(`${index + 1}. ${task}`);
+    console.log(` {${tasks[index].done}} ${index + 1}. ${task}`);
   });
 }
 
