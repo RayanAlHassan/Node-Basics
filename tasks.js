@@ -44,16 +44,14 @@ function onDataReceived(text) {
     list();
   } else if (text.startsWith("add")) {
     addx(text.slice(3));
-  }
-  // else if (text === "remove\n") {
-  //   remove();
-  // }
-  else if (text === "remove 1\n") {
+  } else if (text === "remove 1\n") {
     removeFirst(tasks);
   } else if (text === "remove 2\n") {
     removeSecond(tasks);
   } else if (text.startsWith("remove")) {
     remove(text.slice(6));
+  } else if (text.startsWith("edit")) {
+    editing(text.slice(4));
   } else {
     unknownCommand(text);
   }
@@ -159,6 +157,21 @@ function removeFirst(tasks) {
  */
 function removeSecond(tasks) {
   tasks.splice(1, 1);
+}
+
+/**
+ * edit the tasks
+ * @returns {void}
+ */
+function editing(edt) {
+  ed = edt.trim();
+  if (ed) {
+    if (ed === "new text") {
+      tasks[tasks.length - 1] = "new text";
+    } else if (ed === "1") {
+      tasks[0] = "new text";
+    }
+  } else console.log("error");
 }
 /**
  * Exits the application
