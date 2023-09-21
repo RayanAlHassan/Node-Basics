@@ -103,7 +103,7 @@ const tasks = [
 function list() {
   console.log("Tasks:");
   tasks.forEach((task, index) => {
-    console.log(` {${tasks[index].done}} ${index + 1}. ${task}`);
+    console.log(` {${tasks[index].done}} ${index + 1}. ${tasks[index].task}`);
   });
 }
 
