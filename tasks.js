@@ -32,6 +32,11 @@ function startApp(name) {
  * @returns {void}
  */
 function onDataReceived(text) {
+  let myInput = text;
+  myInput = myInput.replace("\n", "");
+  myInput = myInput.split(" ");
+  console.log(myInput);
+
   if (text === "quit\n" || text === "exit\n") {
     quit();
   } else if (text === "hello\n") {
@@ -51,7 +56,26 @@ function onDataReceived(text) {
   } else if (text.startsWith("remove")) {
     remove(text.slice(6));
   } else if (text.startsWith("edit")) {
-    editing(text.slice(4));
+    let number = 0;
+    let text = "";
+    if (Number(myInput[1])) {
+      number = myInput[1];
+
+      for (let i = 2; i < myInput.length; i++) {
+        text += myInput[i];
+        text += " ";
+      }
+    } else {
+      for (let i = 1; i < myInput.length; i++) {
+        text += myInput[i];
+        text += " ";
+      }
+    }
+    editing(number, text);
+  } else if (text.startsWith("check")) {
+    check(text.slice(5));
+  } else if (text.startsWith("uncheck")) {
+    uncheck(text.slice(7));
   } else {
     unknownCommand(text);
   }
@@ -101,9 +125,15 @@ const tasks = [
 ];
 
 function list() {
+  let mybool = "[ ]";
   console.log("Tasks:");
   tasks.forEach((task, index) => {
-    console.log(` {${tasks[index].done}} ${index + 1}. ${tasks[index].task}`);
+    if (tasks[index].done == true) {
+      mybool = "[✓]";
+    }
+
+    console.log(` ${mybool} ${index + 1}. ${tasks[index].task}`);
+    mybool = "[ ]";
   });
 }
 
@@ -167,16 +197,55 @@ function removeSecond(tasks) {
  * edit the tasks
  * @returns {void}
  */
-function editing(edt) {
+function editing(number, edt) {
   ed = edt.trim();
-  if (ed) {
-    if (ed === "new text") {
-      tasks[tasks.length - 1] = "new text";
-    } else if (ed.startsWith("1")) {
-      tasks[0] = "new text";
-    }
+
+  // let arr = [number, ed];
+  // console.log(arr);
+
+  if (!number) {
+    //if we dont have a number
+    tasks[tasks.length - 1].task = ed;
+  } else {
+    tasks[number - 1].task = ed;
+  }
+
+  // if (ed) {
+  //   if (ed === "new text") {
+  //     tasks[tasks.length - 1] = "new text";
+  //   } else if (ed.startsWith("1")) {
+  //     tasks[0] = "new text";
+  //   }
+  // } else console.log("error");
+}
+
+/**
+ * check
+ * @returns {void}
+ */
+
+function check(checkk) {
+  let checked = checkk.trim();
+  if (checked) {
+    tasks[checked - 1].done = true;
+    // if ((tasks[index].done = true)) {
+    //  tasks[checked - 1].done = true;
+    console.log("	✓");
+    // } else console.log(" ");
   } else console.log("error");
 }
+
+function uncheck(uncheckk) {
+  let uncheckedd = uncheckk.trim();
+  if (uncheckedd) {
+    // console.log(uncheckedd)
+    tasks[uncheckedd - 1].done = false;
+    // if ((tasks[index].done = true)) {
+    console.log("	");
+    // } else console.log(" ");
+  } else console.log("error");
+}
+
 /**
  * Exits the application
  *
