@@ -271,7 +271,10 @@ add x : it will add an item , x is whatever
 add : give an error
 remove : remove the last element
 remove 1 : remove the first element
-remove 2: remove the second element`
+remove 2: remove the second element
+edit 1 x : edit task of a specific task nb 
+check : will mark task as it done
+uncheck : will uncheck the task that is already checked `
   );
 }
 
