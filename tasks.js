@@ -8,12 +8,45 @@
  * @param  {string} name the name of the app
  * @returns {void}
  */
-function startApp(name) {
+let data = "database.json";
+const process = require("process");
+let fs = require("fs");
+const { error } = require("console");
+
+let args = process.argv; // this is the array that have the element which are the node tasks.js database.json , so 3 attribute (whatever we write in node terminal)
+
+if (args[2]) {
+  data = args[2];
+}
+let arr = [];
+let newData = JSON.stringify(arr);
+if (!fs.existsSync(data)) {
+  // file system will check if there is data file which is the path
+  fs.appendFile(data, newData, (err) => {
+    //create a file (whatever it is ,has attribute name data because this attr will handle any file name other that database.json, new data is the string data because when we create file json and when we save it has to be string data (json), than the err handling
+    if (err) {
+      console.log(err);
+    }
+  });
+}
+
+console.log(args);
+async function startApp(name) {
   process.stdin.resume();
   process.stdin.setEncoding("utf8");
   process.stdin.on("data", onDataReceived);
   console.log(`Welcome to ${name}'s application!`);
   console.log("--------------------");
+
+  const fs = require("fs");
+
+  try {
+    await fs.readFile(data, { encoding: "utf-8" }, (err, stringData) => {
+      tasks = JSON.parse(stringData);
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 /**
@@ -118,7 +151,7 @@ function hellox(x) {
  *
  * @returns {void}
  */
-const tasks = [
+let tasks = [
   { task: "add", done: true },
   { task: "remove", done: true },
   { task: "list", done: false },
@@ -256,7 +289,7 @@ async function quit() {
   const jsonData = JSON.stringify(tasks, null, 2);
 
   try {
-    await fs.writeFile("database.json", jsonData, { encoding: "utf-8" });
+    await fs.writeFile(data, jsonData, { encoding: "utf-8" });
     console.log("saved");
   } catch (err) {
     console.log(err);
@@ -291,30 +324,3 @@ uncheck : will uncheck the task that is already checked `
 // The following line starts the application
 startApp("rayan al hassan");
 // tasks.js
-
-const fs = require("fs");
-
-// Function to load tasks from a file (or create an empty array if the file doesn't exist)
-const loadTasksFromFile = (filename) => {
-  try {
-    const data = fs.readFileSync(filename, "utf8");
-    return JSON.parse(data);
-  } catch (error) {
-    console.error("Error loading data from file:", error.message);
-    return []; // Return an empty array in case of an error
-  }
-};
-
-const tasksFilename = process.argv[2] || "database.json"; // Allow specifying a custom save file via command-line argument
-
-const taskss = loadTasksFromFile(tasksFilename);
-
-// ... (previous code)
-
-// Listen for the 'beforeExit' event to save data before exiting
-process.on("beforeExit", () => {
-  saveTasksToFile(taskss, tasksFilename);
-  console.log("Quitting now, goodbye!");
-});
-
-// ... (previous code)
